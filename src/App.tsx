@@ -11,7 +11,7 @@ function App() {
   const [input, setInput] = useState<string>(defaultString);
   const [dataArray, setDataArray] = useState<DataItem[]>([]);
 
-  const splitStrings = (inputString: string) => {
+  const parseInput = (inputString: string) => {
     let workingString = inputString.trim();
     if (workingString.startsWith("(") && workingString.endsWith(")")) {
       workingString = workingString.slice(1, -1);
@@ -42,7 +42,7 @@ function App() {
         const parenIndex = arrayItem.indexOf("(");
         const keyWord = arrayItem.slice(0, parenIndex);
         const values = arrayItem.slice(parenIndex + 1, -1);
-        finalArray.push({ [keyWord]: splitStrings(values) });
+        finalArray.push({ [keyWord]: parseInput(values) });
       } else {
         finalArray.push(arrayItem);
       }
@@ -51,7 +51,7 @@ function App() {
   };
 
   const clickHandler = () => {
-    const result = splitStrings(input);
+    const result = parseInput(input);
     setDataArray(result);
   };
 
